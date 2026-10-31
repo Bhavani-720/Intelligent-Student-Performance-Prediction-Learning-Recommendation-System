@@ -1,0 +1,7 @@
+[
+  "tests/test_pipeline.py::test_dataset_schema",
+  "tests/test_pipeline.py::test_evaluation_metric_properties",
+  "tests/test_pipeline.py::test_missing_values",
+  "tests/test_pipeline.py::test_model_training_and_r2_superiority",
+  "tests/test_pipeline.py::test_numerical_bounds"
+]
