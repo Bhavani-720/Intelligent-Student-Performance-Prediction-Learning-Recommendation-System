@@ -1,0 +1,16 @@
+Student_ID,Name,Department,Semester,Attendance,Internal_Marks,Assignment_Marks,Quiz_Marks,Study_Hours,Previous_CGPA,Backlogs,Final_Marks
+COL-101,Rohan Mehta,Information Technology,4,68.0,12.0,14.0,11.5,2.0,6.8,1,13.5
+COL-102,Aarav Sharma,Computer Science & AI,4,61.7,9.9,11.0,9.7,1.0,6.18,1,11.1
+COL-103,Priya Nair,Electronics & Communication,4,65.1,8.2,11.0,8.4,1.8,6.18,1,9.4
+COL-104,Sneha Patel,Data Science & Analytics,4,56.4,8.9,12.3,7.1,1.8,5.87,2,9.1
+COL-105,Vikram Verma,Computer Science & AI,4,73.4,14.0,13.9,12.8,2.9,6.94,1,14.4
+COL-106,Ananya Iyer,Information Technology,4,75.3,13.7,15.0,12.4,2.5,7.51,1,14.5
+COL-107,Kavya Joshi,Electronics & Communication,4,75.8,12.7,14.2,11.9,3.0,6.85,1,14.5
+COL-108,Arjun Reddy,Computer Science & AI,4,78.3,12.7,15.3,11.3,3.4,7.43,0,13.1
+COL-109,Divya Rao,Data Science & Analytics,4,78.9,12.4,13.7,13.0,2.6,7.35,1,12.5
+COL-110,Harsh Chopra,Information Technology,4,88.3,17.8,18.9,15.9,4.7,8.85,0,17.9
+COL-111,Meera Kapoor,Computer Science & AI,4,84.2,16.6,17.0,16.0,5.5,8.38,0,15.5
+COL-112,Sanjay Gupta,Electronics & Communication,4,95.4,15.3,18.4,18.7,4.3,8.04,0,17.4
+COL-113,Ishaan Das,Computer Science & AI,4,95.3,17.9,18.7,17.7,3.8,8.81,0,17.7
+COL-114,Bhavya Bhat,Data Science & Analytics,4,95.7,16.6,16.9,15.5,4.0,8.07,0,18.8
+COL-115,Pooja Malhotra,Information Technology,4,88.6,17.7,19.2,17.8,3.6,8.52,0,18.0

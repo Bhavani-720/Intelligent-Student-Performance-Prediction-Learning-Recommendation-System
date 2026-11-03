@@ -1,0 +1,408 @@
+{
+  "models": [
+    {
+      "modelId": "mod-random_forest",
+      "algorithm": "random_forest",
+      "name": "Random Forest Regressor (Tuned)",
+      "type": "regression",
+      "trainTimestamp": "2026-10-30 08:30 (Verified)",
+      "isBaseline": false,
+      "regressionMetrics": {
+        "mae": 3.55,
+        "rmse": 4.71,
+        "r2": 0.8637,
+        "mse": 22.15,
+        "cvMeanR2": 0.8544,
+        "cvStdR2": 0.023
+      },
+      "featureImportance": [
+        {
+          "feature": "midterm2Score",
+          "importance": 0.8198
+        },
+        {
+          "feature": "midterm1Score",
+          "importance": 0.1013
+        },
+        {
+          "feature": "pastFailures",
+          "importance": 0.0259
+        },
+        {
+          "feature": "studyTimeWeeklyHours",
+          "importance": 0.0187
+        },
+        {
+          "feature": "attendanceRate",
+          "importance": 0.0146
+        },
+        {
+          "feature": "sleepHours",
+          "importance": 0.0103
+        },
+        {
+          "feature": "absences",
+          "importance": 0.006
+        },
+        {
+          "feature": "travelTimeMinutes",
+          "importance": 0.0036
+        }
+      ],
+      "classificationMetrics": {
+        "accuracy": 0.9873,
+        "precision": 0.9872,
+        "recall": 1.0,
+        "f1Score": 0.9935,
+        "rocAuc": 0.9545,
+        "confusionMatrix": {
+          "tp": 77,
+          "fp": 1,
+          "fn": 0,
+          "tn": 1
+        },
+        "rocPoints": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.013
+          ],
+          [
+            0.0,
+            0.9091
+          ],
+          [
+            0.5,
+            0.9091
+          ],
+          [
+            0.5,
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ]
+      }
+    },
+    {
+      "modelId": "mod-gradient_boosting",
+      "algorithm": "gradient_boosting",
+      "name": "Gradient Boosting Machine (GBM)",
+      "type": "regression",
+      "trainTimestamp": "2026-10-30 08:30 (Verified)",
+      "isBaseline": false,
+      "regressionMetrics": {
+        "mae": 3.42,
+        "rmse": 4.39,
+        "r2": 0.8817,
+        "mse": 19.24,
+        "cvMeanR2": 0.8622,
+        "cvStdR2": 0.026
+      },
+      "featureImportance": [
+        {
+          "feature": "midterm2Score",
+          "importance": 0.754
+        },
+        {
+          "feature": "midterm1Score",
+          "importance": 0.1522
+        },
+        {
+          "feature": "pastFailures",
+          "importance": 0.0487
+        },
+        {
+          "feature": "studyTimeWeeklyHours",
+          "importance": 0.0234
+        },
+        {
+          "feature": "attendanceRate",
+          "importance": 0.0127
+        },
+        {
+          "feature": "absences",
+          "importance": 0.0052
+        },
+        {
+          "feature": "sleepHours",
+          "importance": 0.0035
+        },
+        {
+          "feature": "travelTimeMinutes",
+          "importance": 0.0004
+        }
+      ]
+    },
+    {
+      "modelId": "mod-decision_tree",
+      "algorithm": "decision_tree",
+      "name": "Decision Tree Regressor (CART)",
+      "type": "regression",
+      "trainTimestamp": "2026-10-30 08:30 (Verified)",
+      "isBaseline": false,
+      "regressionMetrics": {
+        "mae": 4.02,
+        "rmse": 5.42,
+        "r2": 0.8196,
+        "mse": 29.33,
+        "cvMeanR2": 0.7643,
+        "cvStdR2": 0.0377
+      },
+      "featureImportance": [
+        {
+          "feature": "midterm2Score",
+          "importance": 0.9175
+        },
+        {
+          "feature": "midterm1Score",
+          "importance": 0.0409
+        },
+        {
+          "feature": "studyTimeWeeklyHours",
+          "importance": 0.0153
+        },
+        {
+          "feature": "pastFailures",
+          "importance": 0.0121
+        },
+        {
+          "feature": "attendanceRate",
+          "importance": 0.0067
+        },
+        {
+          "feature": "absences",
+          "importance": 0.0055
+        },
+        {
+          "feature": "travelTimeMinutes",
+          "importance": 0.0019
+        },
+        {
+          "feature": "sleepHours",
+          "importance": 0.0
+        }
+      ]
+    },
+    {
+      "modelId": "mod-ridge_regression",
+      "algorithm": "ridge_regression",
+      "name": "Ridge Regression (L2 Regularized)",
+      "type": "regression",
+      "trainTimestamp": "2026-10-30 08:30 (Verified)",
+      "isBaseline": false,
+      "regressionMetrics": {
+        "mae": 3.73,
+        "rmse": 4.77,
+        "r2": 0.8601,
+        "mse": 22.75,
+        "cvMeanR2": 0.8653,
+        "cvStdR2": 0.0245
+      },
+      "featureImportance": [
+        {
+          "feature": "midterm2Score",
+          "importance": 0.4785
+        },
+        {
+          "feature": "pastFailures",
+          "importance": 0.2206
+        },
+        {
+          "feature": "midterm1Score",
+          "importance": 0.181
+        },
+        {
+          "feature": "attendanceRate",
+          "importance": 0.047
+        },
+        {
+          "feature": "studyTimeWeeklyHours",
+          "importance": 0.0374
+        },
+        {
+          "feature": "sleepHours",
+          "importance": 0.0134
+        },
+        {
+          "feature": "absences",
+          "importance": 0.0129
+        },
+        {
+          "feature": "travelTimeMinutes",
+          "importance": 0.0093
+        }
+      ]
+    },
+    {
+      "modelId": "mod-linear_regression",
+      "algorithm": "linear_regression",
+      "name": "Multiple Linear Regression (OLS)",
+      "type": "regression",
+      "trainTimestamp": "2026-10-30 08:30 (Verified)",
+      "isBaseline": false,
+      "regressionMetrics": {
+        "mae": 3.73,
+        "rmse": 4.77,
+        "r2": 0.8598,
+        "mse": 22.79,
+        "cvMeanR2": 0.8652,
+        "cvStdR2": 0.0245
+      },
+      "featureImportance": [
+        {
+          "feature": "midterm2Score",
+          "importance": 0.4867
+        },
+        {
+          "feature": "pastFailures",
+          "importance": 0.2192
+        },
+        {
+          "feature": "midterm1Score",
+          "importance": 0.1771
+        },
+        {
+          "feature": "attendanceRate",
+          "importance": 0.0459
+        },
+        {
+          "feature": "studyTimeWeeklyHours",
+          "importance": 0.0355
+        },
+        {
+          "feature": "sleepHours",
+          "importance": 0.0135
+        },
+        {
+          "feature": "absences",
+          "importance": 0.0128
+        },
+        {
+          "feature": "travelTimeMinutes",
+          "importance": 0.0093
+        }
+      ]
+    },
+    {
+      "modelId": "mod-svr",
+      "algorithm": "svr",
+      "name": "Support Vector Regressor (RBF Kernel)",
+      "type": "regression",
+      "trainTimestamp": "2026-10-30 08:30 (Verified)",
+      "isBaseline": false,
+      "regressionMetrics": {
+        "mae": 3.61,
+        "rmse": 5.1,
+        "r2": 0.8401,
+        "mse": 25.99,
+        "cvMeanR2": 0.7965,
+        "cvStdR2": 0.0325
+      },
+      "featureImportance": []
+    },
+    {
+      "modelId": "mod-knn",
+      "algorithm": "knn",
+      "name": "K-Nearest Neighbors (K=5)",
+      "type": "regression",
+      "trainTimestamp": "2026-10-30 08:30 (Verified)",
+      "isBaseline": false,
+      "regressionMetrics": {
+        "mae": 3.77,
+        "rmse": 5.05,
+        "r2": 0.8428,
+        "mse": 25.55,
+        "cvMeanR2": 0.8296,
+        "cvStdR2": 0.0208
+      },
+      "featureImportance": []
+    }
+  ],
+  "baseline": {
+    "modelId": "mod-baseline",
+    "algorithm": "linear_regression",
+    "name": "Baseline (Dummy Mean Regressor)",
+    "type": "regression",
+    "trainTimestamp": "Baseline Floor",
+    "isBaseline": true,
+    "regressionMetrics": {
+      "mae": 9.92,
+      "rmse": 12.8,
+      "r2": -0.0077,
+      "mse": 163.81,
+      "cvMeanR2": -0.012,
+      "cvStdR2": 0.005
+    },
+    "classificationMetrics": {
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1Score": 0.5,
+      "rocAuc": 0.5,
+      "confusionMatrix": {
+        "tp": 39,
+        "fp": 40,
+        "fn": 0,
+        "tn": 0
+      },
+      "rocPoints": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ]
+    },
+    "featureImportance": []
+  },
+  "activeModelId": "mod-random_forest",
+  "heldOutTestSize": 79,
+  "confusionMatrix": {
+    "tp": 77,
+    "fp": 1,
+    "fn": 0,
+    "tn": 1
+  },
+  "classificationMetrics": {
+    "accuracy": 0.9873,
+    "precision": 0.9872,
+    "recall": 1.0,
+    "f1Score": 0.9935,
+    "rocAuc": 0.9545
+  },
+  "rocPoints": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.013
+    ],
+    [
+      0.0,
+      0.9091
+    ],
+    [
+      0.5,
+      0.9091
+    ],
+    [
+      0.5,
+      1.0
+    ],
+    [
+      1.0,
+      1.0
+    ]
+  ]
+}
