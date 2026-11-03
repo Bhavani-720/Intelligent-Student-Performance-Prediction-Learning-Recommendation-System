@@ -3,7 +3,7 @@ REM TREKVERSE AI: Automated Git Initialization and GitHub Push Script
 SETLOCAL EnableDelayedExpansion
 
 echo ====================================================================
-echo 🎓 TREKVERSE AI — GitHub Synchronization Utility
+echo 🎓 TREKVERSE AI — GitHub Push Utility
 echo ====================================================================
 
 REM 1. Check if git is available in standard path or local MinGit
@@ -15,38 +15,41 @@ if %ERRORLEVEL% EQU 0 (
         set GIT_CMD="%LOCALAPPDATA%\Programs\MinGit\cmd\git.exe"
     ) else (
         echo [ERROR] Git was not found in PATH or MinGit directory.
-        echo Please ensure Git is installed.
         pause
         exit /b 1
     )
 )
 
-echo [1/4] Using Git binary: %GIT_CMD%
+echo [1/3] Using Git binary: %GIT_CMD%
 
-REM 2. Initialize git repository if not initialized
-if not exist ".git" (
-    echo [2/4] Initializing new Git repository...
-    %GIT_CMD% init -b main
+REM 2. Configure Remote
+echo [2/3] Configuring origin remote to Bhavani-720 repository...
+%GIT_CMD% remote remove origin >nul 2>&1
+%GIT_CMD% remote add origin https://github.com/Bhavani-720/Intelligent-Student-Performance-Prediction-Learning-Recommendation-System.git
+%GIT_CMD% branch -M main
+
+REM 3. Push to GitHub
+echo [3/3] Pushing to GitHub (main branch)...
+echo If prompted for password, enter your GitHub Personal Access Token (PAT).
+echo.
+%GIT_CMD% push -u origin main
+
+if %ERRORLEVEL% EQU 0 (
+    echo.
+    echo ====================================================================
+    echo ✅ SUCCESS: Repository successfully pushed to GitHub!
+    echo URL: https://github.com/Bhavani-720/Intelligent-Student-Performance-Prediction-Learning-Recommendation-System
+    echo ====================================================================
 ) else (
-    echo [2/4] Existing Git repository detected.
+    echo.
+    echo ====================================================================
+    echo ⚠️ NOTE: If authentication failed, please generate a Personal
+    echo Access Token (classic) on GitHub:
+    echo   1. Visit: https://github.com/settings/tokens
+    echo   2. Generate new token (classic) with "repo" permission checked
+    echo   3. Use your token as the password when prompted
+    echo ====================================================================
 )
 
-REM 3. Stage all modified and added files
-echo [3/4] Staging all files...
-%GIT_CMD% config user.name "Trekverse AI Team"
-%GIT_CMD% config user.email "engineering@trekverse.ai"
-%GIT_CMD% add .
-%GIT_CMD% commit -m "feat: complete upgrade to Trekverse AI Student Intelligence & Early-Warning System"
-
-echo.
-echo ====================================================================
-echo [4/4] Repository is committed and ready to push to GitHub!
-echo ====================================================================
-echo If you have created a GitHub repository, push with:
-echo.
-echo   git remote add origin https://github.com/<YOUR_USERNAME>/<YOUR_REPO>.git
-echo   git push -u origin main
-echo ====================================================================
-
+pause
 ENDLOCAL
-
