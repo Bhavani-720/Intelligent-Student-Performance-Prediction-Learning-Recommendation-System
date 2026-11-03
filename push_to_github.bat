@@ -30,9 +30,11 @@ echo [2/3] Configuring origin remote to Bhavani-720 repository...
 
 REM 3. Push to GitHub
 echo [3/3] Pushing to GitHub (main branch)...
-echo If prompted for password, enter your GitHub Personal Access Token (PAT).
+echo If prompted:
+echo   Username: Bhavani-720
+echo   Password: ^<Your GitHub Personal Access Token^>
 echo.
-%GIT_CMD% push -u origin main
+%GIT_CMD% push -u origin main --force
 
 if %ERRORLEVEL% EQU 0 (
     echo.
