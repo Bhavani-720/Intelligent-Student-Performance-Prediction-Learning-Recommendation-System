@@ -17,7 +17,8 @@
 | 🌐 **Live Streamlit Web Application** | [**Launch Trekverse AI Web App**](https://trekverse-ai-student-intelligence.streamlit.app) | Production Cloud Interactive Dashboard |
 | 🖥️ **Local Dashboard** | `http://localhost:8501` | Local Streamlit multi-role interface |
 | 🚀 **FastAPI Backend Swagger Docs** | `http://localhost:8000/docs` | Interactive OpenAPI / Swagger inference endpoints |
-| 📦 **GitHub Repository** | [**github.com/trekverse/trekverse-ai-student-intelligence**](https://github.com/trekverse/trekverse-ai-student-intelligence) | Complete source code, models & database |
+| 📦 **GitHub Repository** | [**github.com/Bhavani-720/Intelligent-Student-Performance-Prediction-Learning-Recommendation-System**](https://github.com/Bhavani-720/Intelligent-Student-Performance-Prediction-Learning-Recommendation-System) | Complete source code, models & database |
+
 
 ---
 
@@ -278,8 +279,8 @@ Trekverse-Student-Performance/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/trekverse/trekverse-ai-student-intelligence.git
-cd trekverse-ai-student-intelligence
+git clone https://github.com/Bhavani-720/Intelligent-Student-Performance-Prediction-Learning-Recommendation-System.git
+cd Intelligent-Student-Performance-Prediction-Learning-Recommendation-System
 ```
 
 ### 2. Set Up Virtual Environment
