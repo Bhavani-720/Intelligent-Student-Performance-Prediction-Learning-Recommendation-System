@@ -2,28 +2,76 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  --bg-main: #10091F;
+  --bg-secondary: #190D30;
+  --bg-card: #21123B;
+  --purple-deep: #2D1452;
+  --purple-royal: #6D28D9;
+  --purple-electric: #8B5CF6;
+  --purple-neon: #A855F7;
+  --purple-lavender: #C4B5FD;
+  --accent-magenta: #D946EF;
+  --text-main: #F5F3FF;
+  --text-secondary: #B8A9D1;
+}
+
 @layer base {
   body {
-    @apply antialiased selection:bg-blue-600 selection:text-white;
+    @apply antialiased selection:bg-[#8B5CF6] selection:text-white;
+    background-color: #10091F;
+    color: #F5F3FF;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom scrollbar for data tables and sidebar */
+/* Glassmorphism and Royal Purple Glow Utilities */
+.purple-glass {
+  background: rgba(33, 18, 59, 0.78);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.purple-glass-card {
+  background: linear-gradient(145deg, rgba(33, 18, 59, 0.9) 0%, rgba(45, 20, 82, 0.65) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 85, 247, 0.22);
+  box-shadow: 0 10px 30px -10px rgba(16, 9, 31, 0.7), 0 0 15px -3px rgba(109, 40, 217, 0.15);
+}
+
+.purple-glow-border {
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.25);
+}
+
+.purple-glow-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.purple-glow-hover:hover {
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.35);
+  transform: translateY(-2px);
+}
+
+.bg-purple-radial {
+  background: radial-gradient(circle at 50% -10%, #2D1452 0%, #190D30 45%, #10091F 100%);
+}
+
+/* Custom scrollbar in electric violet / lavender */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #10091F;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(139, 92, 246, 0.3);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.4);
+  background: rgba(168, 85, 247, 0.6);
 }

@@ -60,6 +60,24 @@ export interface StudentRecord {
   riskLevel?: 'Low' | 'Moderate' | 'High' | 'Critical';
   cluster?: number;
   predictedScore?: number | null;
+  department?: string;
+  course?: string;
+  semester?: string;
+  school?: string;
+  interventionStatus?: 'Pending' | 'In Progress' | 'Completed';
+  assignedMentor?: string;
+  interventionNotes?: string;
+  trackingStatus?: string;
+}
+
+export interface CohortFilterState {
+  department: string;
+  course: string;
+  semester: string;
+  gender: string;
+  school: string;
+  riskTier: string;
+  minAttendance: number;
 }
 
 export interface DatasetSummary {

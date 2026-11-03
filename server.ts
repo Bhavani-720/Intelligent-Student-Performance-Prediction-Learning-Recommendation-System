@@ -159,7 +159,7 @@ app.post('/api/auth/register', (req, res) => {
     passwordHash: bcrypt.hashSync(password.trim(), 10),
     role: 'STUDENT',
     studentId: generatedStudentId,
-    department: department ? department.trim() : 'B.Tech AI & Data Science',
+    department: department ? department.trim() : 'Department of AI & Data Science',
     createdAt: new Date().toISOString()
   };
 
@@ -190,12 +190,13 @@ app.post('/api/auth/register', (req, res) => {
 
 // Authentication: Login with bcrypt comparison
 app.post('/api/auth/login', (req, res) => {
-  const { identifier, password } = req.body;
+  const identifier = req.body.identifier || req.body.username || req.body.email;
+  const password = req.body.password;
   if (!identifier || !password) {
     return res.status(400).json({ error: 'Username/Email and password are required.' });
   }
 
-  const cleanId = identifier.trim().toLowerCase();
+  const cleanId = String(identifier).trim().toLowerCase();
   const user = usersDb.get(cleanId);
   if (!user) {
     return res.status(401).json({ error: 'Invalid credentials. User does not exist.' });
@@ -314,6 +315,8 @@ app.post('/api/ml/predict', (req, res) => {
     if (!err && stdout && stdout.trim()) {
       try {
         const output = JSON.parse(stdout.trim());
+        output.predictedScore = output.predictedScore ?? output.predictedFinalScore;
+        output.predictedFinalScore = output.predictedFinalScore ?? output.predictedScore;
         return res.json(output);
       } catch (parseErr) {
         // Fall through to calibrated mathematical inference

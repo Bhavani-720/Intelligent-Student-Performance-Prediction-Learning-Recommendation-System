@@ -1,6 +1,6 @@
 """
-TREKVERSE AI — FastApi Production ML Backend Specification
-Student Success Intelligence Hub (B.Tech AI/ML Capstone)
+TREKVERSE AI — FastAPI Production ML Backend Specification
+Student Academic Intelligence & Early-Warning System
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware

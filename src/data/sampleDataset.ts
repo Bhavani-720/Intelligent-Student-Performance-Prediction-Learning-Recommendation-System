@@ -10,7 +10,70 @@ import {
 import realStudentsData from './realStudents.json';
 import trainedModelsData from './trainedModels.json';
 
-export const INITIAL_STUDENTS: StudentRecord[] = realStudentsData as StudentRecord[];
+const DEPARTMENTS = [
+  'Artificial Intelligence & Data Science',
+  'Computer Science & Engineering',
+  'Information Technology',
+  'Electronics & Communication'
+];
+
+const COURSES = [
+  'Machine Learning & Neural Networks',
+  'Advanced Algorithms & Data Structures',
+  'Cloud Computing & Distributed Systems',
+  'Database Systems & Data Warehousing'
+];
+
+const SCHOOLS = [
+  'School of Computing & AI',
+  'School of Engineering Sciences'
+];
+
+const MENTORS = [
+  'Prof. Ananya Sharma',
+  'Dr. Rajesh Verma',
+  'Dr. S. K. Nair',
+  'Prof. Vikram Malhotra'
+];
+
+export const INITIAL_STUDENTS: StudentRecord[] = (realStudentsData as StudentRecord[]).map((s, idx) => {
+  const dept = DEPARTMENTS[idx % DEPARTMENTS.length];
+  const course = COURSES[idx % COURSES.length];
+  const school = SCHOOLS[idx % SCHOOLS.length];
+  const mentor = MENTORS[idx % MENTORS.length];
+  const semester = s.age <= 19 ? 'Semester 5' : s.age === 20 ? 'Semester 6' : s.age === 21 ? 'Semester 7' : 'Semester 8';
+  
+  let interventionStatus: 'Pending' | 'In Progress' | 'Completed' = 'Completed';
+  let trackingStatus = 'Satisfactory Continuous Standing';
+  let interventionNotes = 'Standard academic track. Nominated for peer tutoring program.';
+
+  if (s.riskLevel === 'Critical') {
+    interventionStatus = 'In Progress';
+    trackingStatus = 'Awaiting Follow-up Assessment';
+    interventionNotes = 'Urgent weekly remedial tutorial assigned. Bi-weekly attendance alert triggered.';
+  } else if (s.riskLevel === 'High') {
+    interventionStatus = 'Pending';
+    trackingStatus = 'Awaiting Follow-up Assessment';
+    interventionNotes = 'Scheduled for concept review workshop on Midterm 2 weak areas.';
+  } else if (s.riskLevel === 'Moderate') {
+    interventionStatus = 'Pending';
+    trackingStatus = 'Awaiting Follow-up Assessment';
+    interventionNotes = 'Peer study group assigned; monitored bi-weekly.';
+  }
+
+  return {
+    ...s,
+    department: s.department || dept,
+    course: s.course || course,
+    school: s.school || school,
+    semester: s.semester || semester,
+    assignedMentor: s.assignedMentor || mentor,
+    interventionStatus: s.interventionStatus || interventionStatus,
+    interventionNotes: s.interventionNotes || interventionNotes,
+    trackingStatus: s.trackingStatus || trackingStatus
+  };
+});
+
 export const INITIAL_TRAINED_MODELS: ModelTrainingResult[] = trainedModelsData.models as unknown as ModelTrainingResult[];
 
 // Calculate genuine summary statistics from the 395 students

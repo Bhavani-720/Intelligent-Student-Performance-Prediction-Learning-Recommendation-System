@@ -47,17 +47,17 @@ export const ClusteringPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="p-5 rounded-xl border border-blue-500/20 bg-blue-950/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-6 rounded-2xl border border-purple-800/40 bg-gradient-to-r from-[#190D30] via-[#21123B] to-[#2D1452] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-xl backdrop-blur-xl">
         <div>
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Network className="w-4 h-4 text-blue-500" />
+          <h2 className="text-base font-bold text-[#F5F3FF] flex items-center gap-2">
+            <Network className="w-4 h-4 text-[#8B5CF6]" />
             Unsupervised Student Clustering (K-Means Algorithm)
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-[#B8A9D1] mt-1">
             Segmenting students into cohesive behavioral archetypes without prior labels based on study habits, attendance, and exam consistency.
           </p>
         </div>
-        <div className="px-3 py-1 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 font-mono text-xs">
+        <div className="px-3 py-1 rounded-xl bg-[#8B5CF6]/20 border border-[#8B5CF6]/40 text-[#C4B5FD] font-mono text-xs">
           K=3 Optimal Clusters · Silhouette = 0.582
         </div>
       </div>
@@ -86,7 +86,7 @@ export const ClusteringPage: React.FC = () => {
                 x2={width - padding}
                 y2={height - padding}
                 stroke="currentColor"
-                className="text-slate-400 dark:text-slate-600"
+                className="text-purple-800"
               />
               <line
                 x1={padding}
@@ -94,11 +94,11 @@ export const ClusteringPage: React.FC = () => {
                 x2={padding}
                 y2={height - padding}
                 stroke="currentColor"
-                className="text-slate-400 dark:text-slate-600"
+                className="text-purple-800"
               />
 
               {/* Curve */}
-              <path d={elbowPath} fill="none" stroke="#0066FF" strokeWidth="2.5" />
+              <path d={elbowPath} fill="none" stroke="#8B5CF6" strokeWidth="2.5" />
 
               {/* Points */}
               {elbowData.map((pt) => {
@@ -111,7 +111,7 @@ export const ClusteringPage: React.FC = () => {
                       cx={cx}
                       cy={cy}
                       r={isElbow ? 6 : 4}
-                      fill={isElbow ? '#EF4444' : '#0066FF'}
+                      fill={isElbow ? '#D946EF' : '#8B5CF6'}
                       stroke="#ffffff"
                       strokeWidth="2"
                     />
@@ -119,7 +119,7 @@ export const ClusteringPage: React.FC = () => {
                       x={cx}
                       y={height - padding + 14}
                       textAnchor="middle"
-                      className="text-[10px] fill-slate-500 font-mono"
+                      className="text-[10px] fill-[#B8A9D1] font-mono"
                     >
                       K={pt.k}
                     </text>
@@ -131,15 +131,15 @@ export const ClusteringPage: React.FC = () => {
               <text
                 x={scaleX(3) + 10}
                 y={scaleY(4100) - 10}
-                className="text-[10px] font-bold fill-red-500 font-mono"
+                className="text-[10px] font-bold fill-[#D946EF] font-mono"
               >
                 Optimal K=3 (Elbow)
               </text>
             </svg>
 
-            <div className="w-full max-w-sm pt-2 flex justify-between text-xs text-slate-500 font-mono">
+            <div className="w-full max-w-sm pt-2 flex justify-between text-xs text-[#B8A9D1] font-mono">
               <span>Metric: WCSS (Inertia)</span>
-              <span className="text-blue-500 font-bold">K=3 chosen</span>
+              <span className="text-[#8B5CF6] font-bold">K=3 chosen</span>
             </div>
           </div>
         </ChartCard>
@@ -153,56 +153,56 @@ export const ClusteringPage: React.FC = () => {
             <div
               key={cl.clusterId}
               onClick={() => setSelectedClusterId(cl.clusterId)}
-              className={`rounded-xl border p-5 cursor-pointer transition-all ${
+              className={`rounded-2xl border p-6 cursor-pointer transition-all backdrop-blur-xl ${
                 isSelected
-                  ? 'border-blue-500 bg-blue-50/20 dark:bg-blue-950/20 ring-2 ring-blue-500/50 shadow-md'
-                  : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A] hover:border-slate-300'
+                  ? 'border-[#8B5CF6] bg-[#21123B] ring-2 ring-[#8B5CF6]/50 shadow-xl shadow-purple-950/50'
+                  : 'border-purple-800/40 bg-[#21123B]/80 hover:border-purple-600/60'
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C4B5FD]">
                   Cluster {cl.clusterId}
                 </span>
                 <span
-                  className="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-white"
+                  className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold text-white shadow-sm"
                   style={{ backgroundColor: cl.color }}
                 >
                   {cl.percentage}% of cohort
                 </span>
               </div>
 
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">
+              <h3 className="text-sm font-bold text-[#F5F3FF] mb-2">
                 {cl.name}
               </h3>
 
-              <div className="space-y-1.5 py-3 border-y border-slate-100 dark:border-slate-800 text-xs font-mono">
+              <div className="space-y-1.5 py-3 border-y border-purple-800/30 text-xs font-mono">
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Mean Final Exam:</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{cl.averageGpa}%</span>
+                  <span className="text-[#B8A9D1]">Mean Final Exam:</span>
+                  <span className="font-bold text-[#F5F3FF]">{cl.averageGpa}%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Mean Attendance:</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{cl.averageAttendance}%</span>
+                  <span className="text-[#B8A9D1]">Mean Attendance:</span>
+                  <span className="font-bold text-[#F5F3FF]">{cl.averageAttendance}%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-500">Mean Study:</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{cl.averageStudyHours} hrs/wk</span>
+                  <span className="text-[#B8A9D1]">Mean Study:</span>
+                  <span className="font-bold text-[#F5F3FF]">{cl.averageStudyHours} hrs/wk</span>
                 </div>
               </div>
 
               <div className="mt-3 space-y-1">
-                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+                <span className="text-[11px] font-semibold text-[#C4B5FD]">
                   Dominant Traits:
                 </span>
-                <ul className="text-[11px] text-slate-500 space-y-0.5">
+                <ul className="text-[11px] text-[#B8A9D1] space-y-0.5">
                   {cl.characteristics.map((c) => (
                     <li key={c}>• {c}</li>
                   ))}
                 </ul>
               </div>
 
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400">
-                <span className="font-semibold text-blue-500">Action Plan:</span> {cl.recommendedFocus}
+              <div className="mt-3 pt-3 border-t border-purple-800/30 text-[11px] text-[#B8A9D1]">
+                <span className="font-semibold text-[#8B5CF6]">Action Plan:</span> {cl.recommendedFocus}
               </div>
             </div>
           );

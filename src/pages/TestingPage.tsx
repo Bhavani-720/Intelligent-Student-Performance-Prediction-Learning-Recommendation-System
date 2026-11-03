@@ -33,7 +33,7 @@ export const TestingPage: React.FC = () => {
         <div>
           <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            Automated Test Verification & B.Tech Thesis Documentation
+            Automated Test Verification & System Specification
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             PyTest test suite verifying data integrity, feature preprocessing transforms, loss convergence, and mathematical axioms.
@@ -72,7 +72,7 @@ export const TestingPage: React.FC = () => {
               : 'text-slate-600 dark:text-slate-400 hover:text-white'
           }`}
         >
-          B.Tech System Architecture & Abstract
+          System Architecture & Engineering Specification
         </button>
         <button
           onClick={() => setActiveTab('math')}
@@ -182,11 +182,11 @@ tests/test_pipeline.py::test_evaluation_metric_properties PASSED         [100%]
         <div className="space-y-6">
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0F172A] p-6 shadow-sm space-y-4">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
-              B.Tech Final-Year Capstone Thesis Specification
+              Enterprise Engineering & System Specification
             </h3>
             <div className="space-y-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               <p>
-                <strong className="text-slate-900 dark:text-white">Project Title:</strong> Intelligent Student Performance Prediction and Personalized Learning Recommendation System (Trekverse AI).
+                <strong className="text-slate-900 dark:text-white">System:</strong> Intelligent Student Performance Prediction and Personalized Learning Recommendation System (Trekverse AI).
               </p>
               <p>
                 <strong className="text-slate-900 dark:text-white">Abstract:</strong> In tertiary engineering education, early identification of academically vulnerable students is vital for timely remedial intervention. Trekverse AI bridges this gap by unifying descriptive exploratory analysis, supervised regression/classification, unsupervised K-Means behavioral clustering, and Explainable AI (SHAP TreeExplainer). Through automated continuous pipelines, the system achieves an R² score of 88.4% and early risk classification accuracy of 91.2%, enabling targeted study schedules and faculty advisory actions weeks before end-term assessments.

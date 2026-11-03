@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
 import {
   NavigationPage,
   StudentRecord,
@@ -10,7 +10,8 @@ import {
   PredictionOutput,
   TestSuiteItem,
   DataQualityAudit,
-  CleaningLog
+  CleaningLog,
+  CohortFilterState
 } from '../types';
 import {
   INITIAL_STUDENTS,
@@ -46,6 +47,26 @@ interface AppContextType {
   resetToSampleData: () => void;
   selectedStudentId: string | null;
   setSelectedStudentId: (id: string | null) => void;
+  cohortFilters: CohortFilterState;
+  setCohortFilters: React.Dispatch<React.SetStateAction<CohortFilterState>>;
+  resetCohortFilters: () => void;
+  filteredStudents: StudentRecord[];
+  bestModel: ModelTrainingResult | null;
+  updateStudentIntervention: (
+    studentId: string,
+    status: 'Pending' | 'In Progress' | 'Completed',
+    mentor: string,
+    notes: string
+  ) => void;
+  riskSummary: {
+    total: number;
+    low: number;
+    moderate: number;
+    high: number;
+    critical: number;
+    elevatedTotal: number;
+    urgentTotal: number;
+  };
 }
 
 const defaultHyperparameters: ModelHyperparameters = {
@@ -95,6 +116,78 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [predictionResult, setPredictionResult] = useState<PredictionOutput | null>(null);
   const [testSuite, setTestSuite] = useState<TestSuiteItem[]>(INITIAL_TEST_SUITE);
   const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
+
+  const initialFilters: CohortFilterState = {
+    department: 'All',
+    course: 'All',
+    semester: 'All',
+    gender: 'All',
+    school: 'All',
+    riskTier: 'All',
+    minAttendance: 0
+  };
+
+  const [cohortFilters, setCohortFilters] = useState<CohortFilterState>(initialFilters);
+
+  const resetCohortFilters = () => setCohortFilters(initialFilters);
+
+  // Filtered students array based on cohort filters
+  const filteredStudents = useMemo(() => {
+    return students.filter((s) => {
+      if (cohortFilters.department !== 'All' && s.department !== cohortFilters.department) return false;
+      if (cohortFilters.course !== 'All' && s.course !== cohortFilters.course) return false;
+      if (cohortFilters.semester !== 'All' && s.semester !== cohortFilters.semester) return false;
+      if (cohortFilters.gender !== 'All' && s.gender !== cohortFilters.gender) return false;
+      if (cohortFilters.school !== 'All' && s.school !== cohortFilters.school) return false;
+      if (cohortFilters.riskTier !== 'All' && s.riskLevel !== cohortFilters.riskTier) return false;
+      if (cohortFilters.minAttendance > 0 && s.attendanceRate < cohortFilters.minAttendance) return false;
+      return true;
+    });
+  }, [students, cohortFilters]);
+
+  // Automatic best model selection (highest R² / lowest RMSE)
+  const bestModel = useMemo(() => {
+    if (!trainedModels || trainedModels.length === 0) return null;
+    return [...trainedModels].sort((a, b) => (b.regressionMetrics?.r2 || 0) - (a.regressionMetrics?.r2 || 0))[0] || null;
+  }, [trainedModels]);
+
+  // Risk summary counts strictly partitioned across the cohort
+  const riskSummary = useMemo(() => {
+    const critical = students.filter((s) => s.riskLevel === 'Critical').length;
+    const high = students.filter((s) => s.riskLevel === 'High').length;
+    const moderate = students.filter((s) => s.riskLevel === 'Moderate').length;
+    const low = students.filter((s) => s.riskLevel === 'Low').length;
+    return {
+      total: students.length,
+      low,
+      moderate,
+      high,
+      critical,
+      elevatedTotal: moderate + high + critical, // 176
+      urgentTotal: high + critical // 155
+    };
+  }, [students]);
+
+  const updateStudentIntervention = (
+    studentId: string,
+    status: 'Pending' | 'In Progress' | 'Completed',
+    mentor: string,
+    notes: string
+  ) => {
+    setStudents((prev) =>
+      prev.map((s) =>
+        s.studentId === studentId || s.id === studentId
+          ? {
+              ...s,
+              interventionStatus: status,
+              assignedMentor: mentor || s.assignedMentor,
+              interventionNotes: notes || s.interventionNotes,
+              trackingStatus: 'Awaiting Follow-up Assessment'
+            }
+          : s
+      )
+    );
+  };
 
   // Sync theme class on <html>
   useEffect(() => {
@@ -451,7 +544,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         loadUncleanedDatasetSample,
         resetToSampleData,
         selectedStudentId,
-        setSelectedStudentId
+        setSelectedStudentId,
+        cohortFilters,
+        setCohortFilters,
+        resetCohortFilters,
+        filteredStudents,
+        bestModel,
+        updateStudentIntervention,
+        riskSummary
       }}
     >
       {children}

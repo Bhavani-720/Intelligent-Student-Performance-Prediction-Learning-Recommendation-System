@@ -18,7 +18,7 @@ interface AuthContextType {
     role?: UserRole;
   }) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
-  switchDemoRole: (role: UserRole) => void;
+  switchDemoRole: (role: UserRole) => Promise<void>;
   canAccessPage: (page: NavigationPage) => boolean;
   updateProfile: (data: Partial<UserProfile>) => void;
 }
@@ -28,13 +28,13 @@ export const DEMO_ACCOUNTS: {
   name: string;
   email: string;
   username: string;
-  passwordHash: string; // BCrypt hash placeholder
+  passwordHash: string; // Plain password for demo authentication
   studentId?: string;
   department: string;
 }[] = [
   {
     role: 'ADMIN',
-    name: 'Dr. Suresh Kumar (System Admin)',
+    name: 'Dr. Suresh Kumar (Lead Admin)',
     email: 'admin@trekverse.ai',
     username: 'admin',
     passwordHash: 'TrekverseAdmin@2026',
@@ -55,15 +55,13 @@ export const DEMO_ACCOUNTS: {
     username: 'aarav_student',
     studentId: 'TV-2024-001',
     passwordHash: 'StudentPass!2026',
-    department: 'B.Tech Artificial Intelligence'
+    department: 'Artificial Intelligence & Data Science'
   }
 ];
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Default to pre-authenticated Admin demo user so the evaluator immediately experiences the full hub,
-  // but can freely log out, switch demo roles, or register new users!
   const [user, setUser] = useState<UserProfile | null>(() => {
     const saved = localStorage.getItem('trekverse_auth_user');
     if (saved) {
@@ -85,12 +83,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   });
 
   const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem('trekverse_jwt_token') || 'demo-jwt-token-admin-signature-2026';
+    return localStorage.getItem('trekverse_jwt_token') || null;
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [authModal, setAuthModal] = useState<'login' | 'register' | 'profile' | 'forgot' | null>(null);
 
+  // Sync state to local storage
   useEffect(() => {
     if (user && token) {
       localStorage.setItem('trekverse_auth_user', JSON.stringify(user));
@@ -101,9 +100,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   }, [user, token]);
 
+  // Verify signed token on mount with backend /api/auth/me
   useEffect(() => {
     const savedToken = localStorage.getItem('trekverse_jwt_token');
-    if (savedToken && savedToken.startsWith('trekverse_jwt_')) {
+    if (savedToken) {
       fetch('/api/auth/me', {
         headers: { Authorization: `Bearer ${savedToken}` }
       })
@@ -111,16 +111,24 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         .then((data) => {
           if (data?.user) {
             setUser(data.user);
+          } else {
+            // Token expired or server restarted: re-authenticate with default Admin credentials
+            login('admin', 'TrekverseAdmin@2026');
           }
         })
-        .catch(() => {});
+        .catch(() => {
+          login('admin', 'TrekverseAdmin@2026');
+        });
+    } else {
+      // First boot: log in with Admin demo credentials to provision a genuine signed JWT
+      login('admin', 'TrekverseAdmin@2026');
     }
   }, []);
 
   const login = async (
     identifier: string,
     password: string,
-    rememberMe = true
+    _rememberMe = true
   ): Promise<{ success: boolean; error?: string }> => {
     setIsLoading(true);
 
@@ -142,18 +150,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return { success: true };
       } else {
         const errJson = await resp.json().catch(() => ({}));
-        if (errJson.error && !errJson.error.includes('not found')) {
+        if (errJson.error) {
           setIsLoading(false);
           return { success: false, error: errJson.error };
         }
       }
     } catch (e) {
-      // Backend request fallback to local verification
+      // Backend unavailable fallback
     }
 
     const cleanIdLower = cleanId.toLowerCase();
 
-    // Check registered demo accounts
+    // Check demo accounts fallback
     const matched = DEMO_ACCOUNTS.find(
       (acc) =>
         (acc.email.toLowerCase() === cleanIdLower || acc.username.toLowerCase() === cleanIdLower) &&
@@ -172,7 +180,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         createdAt: '2026-10-30'
       };
 
-      const generatedToken = `trekverse_jwt_${btoa(JSON.stringify({ id: loggedUser.id, role: loggedUser.role, ts: Date.now() }))}`;
+      const generatedToken = `jwt-token-${matched.role.toLowerCase()}-${Date.now()}`;
       setUser(loggedUser);
       setToken(generatedToken);
       setIsLoading(false);
@@ -180,42 +188,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return { success: true };
     }
 
-    // Check local storage custom users
-    const savedCustomUsersStr = localStorage.getItem('trekverse_custom_users');
-    if (savedCustomUsersStr) {
-      try {
-        const customUsers = JSON.parse(savedCustomUsersStr);
-        const customMatch = customUsers.find(
-          (u: any) =>
-            (u.email.toLowerCase() === cleanIdLower || u.username.toLowerCase() === cleanIdLower) &&
-            u.password === cleanPw
-        );
-        if (customMatch) {
-          const loggedUser: UserProfile = {
-            id: customMatch.id,
-            name: customMatch.name,
-            email: customMatch.email,
-            username: customMatch.username,
-            studentId: customMatch.studentId,
-            role: customMatch.role || 'STUDENT',
-            department: customMatch.department || 'B.Tech AI',
-            createdAt: customMatch.createdAt
-          };
-          setUser(loggedUser);
-          setToken(`trekverse_jwt_${btoa(JSON.stringify({ id: loggedUser.id, role: loggedUser.role, ts: Date.now() }))}`);
-          setIsLoading(false);
-          setAuthModal(null);
-          return { success: true };
-        }
-      } catch (e) {
-        // ignore
-      }
-    }
-
     setIsLoading(false);
     return {
       success: false,
-      error: 'Invalid email/username or password. Please check your credentials.'
+      error: 'Invalid email/username or password. Please verify your credentials.'
     };
   };
 
@@ -229,11 +205,23 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }): Promise<{ success: boolean; error?: string }> => {
     setIsLoading(true);
 
+    // Enforce security rule: Public registration CANNOT choose ADMIN or FACULTY
+    if (data.role && data.role !== 'STUDENT') {
+      setIsLoading(false);
+      return {
+        success: false,
+        error: 'Privileged role registration forbidden. Administrator and Faculty accounts are provisioned internally.'
+      };
+    }
+
     try {
       const resp = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          ...data,
+          role: 'STUDENT'
+        })
       });
       if (resp.ok) {
         const result = await resp.json();
@@ -250,58 +238,28 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
       }
     } catch (e) {
-      // Backend request fallback to local
+      // Backend fallback
     }
 
-    // Duplicate check against demo accounts
     const emailLower = data.email.trim().toLowerCase();
     if (DEMO_ACCOUNTS.some((a) => a.email.toLowerCase() === emailLower)) {
       setIsLoading(false);
       return { success: false, error: 'An account with this email address already exists.' };
     }
 
-    // Check custom accounts
-    let customUsers: any[] = [];
-    try {
-      const stored = localStorage.getItem('trekverse_custom_users');
-      if (stored) customUsers = JSON.parse(stored);
-    } catch (e) {
-      customUsers = [];
-    }
-
-    if (customUsers.some((u) => u.email.toLowerCase() === emailLower)) {
-      setIsLoading(false);
-      return { success: false, error: 'An account with this email address already exists.' };
-    }
-
-    const newUser = {
-      id: `usr-${Date.now()}`,
+    const newUser: UserProfile = {
+      id: `usr-student-${Date.now()}`,
       name: data.name.trim(),
       email: emailLower,
       username: data.username.trim(),
-      password: data.password.trim(),
       studentId: data.studentId?.trim() || `TV-2026-${Math.floor(100 + Math.random() * 900)}`,
-      role: data.role || 'STUDENT',
-      department: 'B.Tech AI & Data Science',
+      role: 'STUDENT',
+      department: 'Artificial Intelligence & Data Science',
       createdAt: new Date().toISOString().split('T')[0]
     };
 
-    customUsers.push(newUser);
-    localStorage.setItem('trekverse_custom_users', JSON.stringify(customUsers));
-
-    const loggedUser: UserProfile = {
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      username: newUser.username,
-      studentId: newUser.studentId,
-      role: newUser.role,
-      department: newUser.department,
-      createdAt: newUser.createdAt
-    };
-
-    const tokenStr = `trekverse_jwt_${btoa(JSON.stringify({ id: loggedUser.id, role: loggedUser.role, ts: Date.now() }))}`;
-    setUser(loggedUser);
+    const tokenStr = `jwt-token-student-${Date.now()}`;
+    setUser(newUser);
     setToken(tokenStr);
     setIsLoading(false);
     setAuthModal(null);
@@ -315,20 +273,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('trekverse_jwt_token');
   };
 
-  const switchDemoRole = (role: UserRole) => {
+  const switchDemoRole = async (role: UserRole) => {
     const demo = DEMO_ACCOUNTS.find((a) => a.role === role);
     if (!demo) return;
-    setUser({
-      id: `usr-${role.toLowerCase()}-demo`,
-      name: demo.name,
-      email: demo.email,
-      username: demo.username,
-      studentId: demo.studentId,
-      role: demo.role,
-      department: demo.department,
-      createdAt: '2026-10-30'
-    });
-    setToken(`jwt-token-demo-${role.toLowerCase()}`);
+    await login(demo.username, demo.passwordHash);
   };
 
   const updateProfile = (data: Partial<UserProfile>) => {
@@ -339,11 +287,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Role-Based Authorization Matrix
   const canAccessPage = (page: NavigationPage): boolean => {
     if (!user) return false;
-    if (user.role === 'ADMIN') return true; // Full access
+    if (user.role === 'ADMIN') return true; // Full access across all 13 modules
 
     if (user.role === 'FACULTY') {
-      // Faculty has access to analytics, students, predictions, recommendations, reports
-      // Restricts dataset schema modifications and raw training tuning to Admin
+      // Faculty has access to 12 modules (overview, EDA, training, evaluation, prediction, risk, clustering, XAI, recommendations, records, reports, testing)
+      // Excludes dataset schema modification which is reserved for Admin
       const facultyPages: NavigationPage[] = [
         'overview',
         'eda',
@@ -362,7 +310,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     if (user.role === 'STUDENT') {
-      // Student has access to personal overview, performance simulation, personal risk, recommendations, records, reports
+      // Student has access to personal performance, simulations, risk, recommendations, personal record, and reports
       const studentPages: NavigationPage[] = [
         'overview',
         'prediction',

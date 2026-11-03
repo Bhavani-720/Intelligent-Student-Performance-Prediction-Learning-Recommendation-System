@@ -28,7 +28,7 @@ export const DistributionHistogram: React.FC<DistributionHistogramProps> = ({
   data = defaultBins,
   mean = 87.1,
   std = 14.2,
-  accentColor = '#0066FF'
+  accentColor = '#8B5CF6'
 }) => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const maxCount = Math.max(...data.map((d) => d.count), 1);
@@ -51,32 +51,35 @@ export const DistributionHistogram: React.FC<DistributionHistogramProps> = ({
             >
               {/* Tooltip */}
               {isHovered && (
-                <div className="absolute -top-10 z-20 px-2 py-1 rounded bg-slate-900 text-white text-[11px] font-mono shadow whitespace-nowrap">
+                <div className="absolute -top-10 z-20 px-2.5 py-1 rounded-xl bg-[#21123B] border border-purple-500/40 text-[#F5F3FF] text-[11px] font-mono shadow-xl shadow-purple-950/80 whitespace-nowrap">
                   {bin.range}: {bin.count} students ({pct}%) · {bin.label}
                 </div>
               )}
 
               {/* Bar */}
               <div
-                className="w-full rounded-t transition-all duration-200"
+                className="w-full rounded-t-lg transition-all duration-200"
                 style={{
                   height: `${Math.max(barHeight, 4)}px`,
-                  backgroundColor: isHovered ? '#38BDF8' : accentColor,
+                  background: isHovered
+                    ? 'linear-gradient(180deg, #D946EF 0%, #A855F7 100%)'
+                    : 'linear-gradient(180deg, #8B5CF6 0%, #6D28D9 100%)',
+                  boxShadow: isHovered ? '0 0 12px rgba(217, 70, 239, 0.5)' : 'none',
                   opacity: hoveredIdx !== null && !isHovered ? 0.6 : 1
                 }}
               />
 
               {/* X Axis Label */}
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-2 font-mono truncate w-full text-center">
+              <span className="text-[10px] text-[#B8A9D1] mt-2 font-mono truncate w-full text-center">
                 {bin.range}
               </span>
             </div>
           );
         })}
       </div>
-      <div className="flex justify-between items-center text-xs text-slate-400 mt-1 px-1 font-mono">
+      <div className="flex justify-between items-center text-xs text-[#B8A9D1] mt-1 px-1 font-mono">
         <span>Lower Score Quartiles</span>
-        <span className="text-blue-500 font-semibold">
+        <span className="text-[#A855F7] font-semibold">
           Mean: {mean.toFixed(1)}% | Std: {std.toFixed(1)}
         </span>
         <span>Upper Honors Quartiles</span>

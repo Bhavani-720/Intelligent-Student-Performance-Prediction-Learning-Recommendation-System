@@ -56,7 +56,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070D18] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-[#10091F] bg-purple-radial text-[#F5F3FF] flex flex-col font-sans transition-colors duration-200">
       <Sidebar collapsed={sidebarCollapsed} setCollapsed={setSidebarCollapsed} />
 
       <div className="flex-1 flex flex-col min-w-0">

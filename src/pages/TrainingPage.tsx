@@ -85,6 +85,7 @@ export const TrainingPage: React.FC = () => {
   const {
     trainedModels,
     activeModel,
+    bestModel,
     isTraining,
     trainingProgress,
     startTraining,
@@ -314,13 +315,17 @@ export const TrainingPage: React.FC = () => {
                       <span className="font-semibold text-slate-900 dark:text-white truncate max-w-[180px]">
                         {mod.name}
                       </span>
-                      {mod.isBaseline ? (
+                      {mod.modelId === bestModel?.modelId ? (
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-600 text-white font-bold">
+                          BEST MODEL (AUTO-SELECTED)
+                        </span>
+                      ) : mod.isBaseline ? (
                         <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                          Baseline
+                          Baseline Floor
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold">
-                          Active
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold">
+                          Verified Model
                         </span>
                       )}
                     </div>
