@@ -1,23 +1,51 @@
-# Node dependencies & build outputs
+# Dependencies & Build Artifacts
 node_modules/
 build/
 dist/
 coverage/
 
-# Operating system artifacts
+# Operating System Files
 .DS_Store
 Thumbs.db
+Desktop.ini
 *.log
 
-# Environment variables
+# Environment Variables, Secrets & Credentials
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
+.env.*
 !.env.example
+*.env
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+credentials.json
+serviceAccountKey*.json
+client_secret*.json
+secret*.json
+secrets.json
+secrets.yaml
+secrets.yml
+.npmrc
+.pypirc
 
-# Python & PyTest artifacts
+# Database Credentials, Dumps & Temporary Locks
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+dump.rdb
+*.sql.gz
+
+# Python & PyTest Artifacts
 __pycache__/
 *.py[cod]
 *$py.class
@@ -30,13 +58,17 @@ venv/
 env/
 ENV/
 
-# IDE / Editor configurations
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
+# IDE & Editor Configurations
+.vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
 
-# Scripts
+# Temporary & Local Scratch
+temp/
+tmp/
+*.tmp
+*.bak
+*.swp
+*.swo
 download_git.py
