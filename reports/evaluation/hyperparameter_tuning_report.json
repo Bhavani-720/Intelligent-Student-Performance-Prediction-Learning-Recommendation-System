@@ -1,0 +1,57 @@
+{
+  "method": "Scikit-Learn GridSearchCV with 5-Fold Stratified Cross-Validation",
+  "random_seed": 42,
+  "regressor_tuning": {
+    "model": "RandomForestRegressor",
+    "parameter_grid_tested": {
+      "n_estimators": [
+        50,
+        100
+      ],
+      "max_depth": [
+        4,
+        6,
+        8
+      ],
+      "min_samples_split": [
+        2,
+        5
+      ],
+      "min_samples_leaf": [
+        1,
+        2
+      ]
+    },
+    "best_cv_r2_score": 0.3835,
+    "optimal_hyperparameters": {
+      "max_depth": 6,
+      "min_samples_leaf": 2,
+      "min_samples_split": 2,
+      "n_estimators": 100
+    }
+  },
+  "classifier_tuning": {
+    "model": "RandomForestClassifier",
+    "parameter_grid_tested": {
+      "n_estimators": [
+        50,
+        100
+      ],
+      "max_depth": [
+        4,
+        6,
+        8
+      ],
+      "min_samples_split": [
+        2,
+        5
+      ]
+    },
+    "best_cv_macro_f1_score": 0.8616,
+    "optimal_hyperparameters": {
+      "max_depth": 6,
+      "min_samples_split": 5,
+      "n_estimators": 100
+    }
+  }
+}

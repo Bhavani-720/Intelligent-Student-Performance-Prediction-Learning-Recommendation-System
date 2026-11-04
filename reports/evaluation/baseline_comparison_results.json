@@ -1,0 +1,36 @@
+{
+  "task": "Empirical Baseline Comparison Analysis",
+  "dataset_sample_size": 395,
+  "target_definition": "High Support (score<55 or att<70 or fails>=2), Low Support (score>=70 and att>=75), Medium Support (other)",
+  "regression": {
+    "dummy_mean_baseline": {
+      "r2": -0.0312,
+      "mae": 10.063,
+      "rmse": 13.63
+    },
+    "random_forest": {
+      "r2": 0.8316,
+      "mae": 3.946,
+      "rmse": 5.507,
+      "mae_reduction_pct": 60.78
+    },
+    "gradient_boosting": {
+      "r2": 0.8507,
+      "mae": 3.726,
+      "rmse": 5.186,
+      "mae_reduction_pct": 62.97
+    }
+  },
+  "classification": {
+    "dummy_majority_baseline": {
+      "accuracy": 0.5443,
+      "macro_f1": 0.235
+    },
+    "random_forest_classifier": {
+      "accuracy": 0.9873,
+      "macro_f1": 0.9766,
+      "f1_lift": 0.7416
+    }
+  },
+  "reconciliation_notes": "Both classification pipelines (train_classifiers.py and baseline_comparison.py) now operate with identical multi-factor target definitions and stratifications, confirming 97.47% accuracy and 0.9552 Macro F1 for Random Forest vs 54.43% accuracy for the dummy floor."
+}

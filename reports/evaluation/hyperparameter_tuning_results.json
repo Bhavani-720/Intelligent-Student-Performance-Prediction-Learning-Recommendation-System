@@ -1,0 +1,35 @@
+{
+  "task": "Hyperparameter Optimization via GridSearchCV (5-Fold Stratified CV)",
+  "dataset_samples": 395,
+  "train_size": 316,
+  "test_size": 79,
+  "scoring_metric": "neg_mean_squared_error",
+  "algorithms": {
+    "Random Forest Regressor": {
+      "best_params": {
+        "max_depth": 4,
+        "min_samples_leaf": 2,
+        "min_samples_split": 5,
+        "n_estimators": 100
+      },
+      "best_cv_r2": 0.8466,
+      "test_r2": 0.86,
+      "test_mae": 3.6018,
+      "test_rmse": 4.771,
+      "total_combinations_tested": 36
+    },
+    "Gradient Boosting Regressor": {
+      "best_params": {
+        "learning_rate": 0.03,
+        "max_depth": 3,
+        "n_estimators": 120,
+        "subsample": 0.85
+      },
+      "best_cv_r2": 0.8628,
+      "test_r2": 0.8834,
+      "test_mae": 3.4023,
+      "test_rmse": 4.3527,
+      "total_combinations_tested": 54
+    }
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "task": "Student Support Group Classification (3-Class: Low, Medium, High Support)",
+  "dataset_total": 395,
+  "train_samples": 316,
+  "test_samples": 79,
+  "class_labels": [
+    "Low Support",
+    "Medium Support",
+    "High Support"
+  ],
+  "class_distribution": {
+    "Low Support": 213,
+    "High Support": 136,
+    "Medium Support": 46
+  },
+  "features_used": [
+    "studyTimeWeeklyHours",
+    "attendanceRate",
+    "absences",
+    "pastFailures",
+    "midterm1Score",
+    "midterm2Score",
+    "sleepHours",
+    "travelTimeMinutes",
+    "assessment_trend",
+    "engagement_consistency"
+  ],
+  "models": {
+    "Dummy (Majority Class Baseline)": {
+      "accuracy": 0.5443,
+      "macro_precision": 0.1814,
+      "macro_recall": 0.3333,
+      "macro_f1": 0.235,
+      "weighted_f1": 0.3837,
+      "cv_f1_macro_mean": 0.2332,
+      "cv_f1_macro_std": 0.001,
+      "confusion_matrix": [
+        [
+          43,
+          0,
+          0
+        ],
+        [
+          9,
+          0,
+          0
+        ],
+        [
+          27,
+          0,
+          0
+        ]
+      ]
+    },
+    "Logistic Regression": {
+      "accuracy": 0.7089,
+      "macro_precision": 0.6788,
+      "macro_recall": 0.6971,
+      "macro_f1": 0.6519,
+      "weighted_f1": 0.746,
+      "cv_f1_macro_mean": 0.7993,
+      "cv_f1_macro_std": 0.0371,
+      "confusion_matrix": [
+        [
+          31,
+          11,
+          1
+        ],
+        [
+          1,
+          6,
+          2
+        ],
+        [
+          2,
+          6,
+          19
+        ]
+      ]
+    },
+    "Decision Tree Classifier": {
+      "accuracy": 0.962,
+      "macro_precision": 0.9254,
+      "macro_recall": 0.9475,
+      "macro_f1": 0.9356,
+      "weighted_f1": 0.9628,
+      "cv_f1_macro_mean": 0.9528,
+      "cv_f1_macro_std": 0.0245,
+      "confusion_matrix": [
+        [
+          41,
+          2,
+          0
+        ],
+        [
+          1,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          27
+        ]
+      ]
+    },
+    "Random Forest Classifier": {
+      "accuracy": 0.9747,
+      "macro_precision": 0.9552,
+      "macro_recall": 0.9552,
+      "macro_f1": 0.9552,
+      "weighted_f1": 0.9747,
+      "cv_f1_macro_mean": 0.9482,
+      "cv_f1_macro_std": 0.0256,
+      "confusion_matrix": [
+        [
+          42,
+          1,
+          0
+        ],
+        [
+          1,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          27
+        ]
+      ]
+    },
+    "Gradient Boosting Classifier": {
+      "accuracy": 0.9747,
+      "macro_precision": 0.9852,
+      "macro_recall": 0.9259,
+      "macro_f1": 0.9508,
+      "weighted_f1": 0.9734,
+      "cv_f1_macro_mean": 0.9548,
+      "cv_f1_macro_std": 0.0275,
+      "confusion_matrix": [
+        [
+          43,
+          0,
+          0
+        ],
+        [
+          2,
+          7,
+          0
+        ],
+        [
+          0,
+          0,
+          27
+        ]
+      ]
+    }
+  },
+  "best_model": "Random Forest Classifier",
+  "best_macro_f1": 0.9552
+}
