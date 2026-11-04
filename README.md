@@ -346,6 +346,33 @@ tests/test_pipeline.py::test_college_dataset_upload_validation PASSED    [100%]
 
 ---
 
+## 📊 Project Visualizations, Evaluation Results & Artifacts
+
+All empirical model evaluation graphs, confusion matrices, ROC curves, and SHAP explainability visualizations are generated directly from the trained algorithms and verified benchmark dataset:
+
+### 📈 Empirical Machine Learning Figures
+
+| Figure | Description | File Link |
+|---|---|---|
+| **Multi-Model Benchmark** | Comparison of Test $R^2$, MAE, and RMSE across 7 regression algorithms | [01_model_comparison_benchmark.png](reports/figures/01_model_comparison_benchmark.png) |
+| **Early-Warning Confusion Matrix** | 98.73% Accuracy and 100.00% Recall on the held-out test split ($N = 79$) | [02_early_warning_confusion_matrix.png](reports/figures/02_early_warning_confusion_matrix.png) |
+| **ROC-AUC Curve** | Early academic risk classification sensitivity vs specificity (AUC = 0.955) | [03_model_roc_auc_curve.png](reports/figures/03_model_roc_auc_curve.png) |
+| **Global SHAP Explainability** | Exact game-theoretic feature importance (Midterm 2: 81.98%, Midterm 1: 10.13%) | [04_shap_global_feature_importance.png](reports/figures/04_shap_global_feature_importance.png) |
+| **Risk Stratification Breakdown** | Cohort breakdown across 4 mutually exclusive risk levels ($N = 395$) | [05_risk_stratification_distribution.png](reports/figures/05_risk_stratification_distribution.png) |
+| **Correlation Matrix Heatmap** | Pearson correlations among marks, attendance, study hours, and failures | [06_academic_correlation_matrix.png](reports/figures/06_academic_correlation_matrix.png) |
+| **Student Behavioral PCA Clusters** | Unsupervised K-Means clustering ($K=4$) projected onto 2 principal components | [07_student_clustering_pca.png](reports/figures/07_student_clustering_pca.png) |
+
+### 📑 Downloadable PDF Reports & Audit Summaries
+
+- 📄 **Student Diagnostic Report (STU1024)**: [`outputs/STU1024_sample_academic_report.pdf`](outputs/STU1024_sample_academic_report.pdf) — Pure-Python vector PDF featuring digital verification token `TV-DOC-A4769357D812FD8F`.
+- 📊 **Executive Institutional Analytics Sample**: [`outputs/trekverse_executive_analytics_report_sample.pdf`](outputs/trekverse_executive_analytics_report_sample.pdf)
+- 📝 **Model Evaluation Audit Report**: [`reports/evaluation/model_evaluation_report.md`](reports/evaluation/model_evaluation_report.md)
+- 📋 **Dataset Analysis & Dictionary**: [`reports/evaluation/dataset_analysis_report.md`](reports/evaluation/dataset_analysis_report.md)
+- ⚠️ **Institutional Risk Report**: [`reports/evaluation/risk_analysis_report.md`](reports/evaluation/risk_analysis_report.md)
+- 🖼️ **Module Showcase & UI Screen Guide**: [`docs/screenshots/README.md`](docs/screenshots/README.md)
+
+---
+
 ## 🔑 Demo Access Credentials
 
 | Role | Username | Password | Full Name & Designation | Primary Permissions |

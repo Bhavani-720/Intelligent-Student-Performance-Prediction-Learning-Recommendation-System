@@ -2,55 +2,64 @@
 
 ## Tagline: Predict. Understand. Improve. Succeed.
 
-This document details all **13 core enterprise modules** of the **Trekverse AI — Student Academic Intelligence & Early-Warning System**.
+This catalog details all core visual modules and empirical outputs of the **Trekverse AI — Student Academic Intelligence & Early-Warning System**.
 
 ---
 
-## Navigation Directory & Module Matrix
+## 📸 Empirical Model Evaluation Figures (Generated & Verified)
 
-| # | Module Name | Route / Path | Primary Audience | Key Functionality |
+The following publication-grade evaluation figures were computed and rendered directly from the production machine learning models and verified benchmark dataset ($N = 395$):
+
+| Figure # | Visual Output | Relative File Path | Metric / Finding |
+| :---: | :--- | :--- | :--- |
+| **01** | **Multi-Model Benchmark Comparison** | [`reports/figures/01_model_comparison_benchmark.png`](../../reports/figures/01_model_comparison_benchmark.png) | 7-Model Comparison (Gradient Boosting $R^2 = 87.4\%$, Random Forest $R^2 = 86.4\%$, Ridge $85.9\%$, OLS $85.8\%$, SVR $84.1\%$, KNN $81.5\%$, Decision Tree $79.2\%$) |
+| **02** | **Early-Warning Confusion Matrix** | [`reports/figures/02_early_warning_confusion_matrix.png`](../../reports/figures/02_early_warning_confusion_matrix.png) | Held-Out Test Set ($N = 79$): 77 TP, 1 FP, 0 FN, 1 TN (**98.73% Accuracy**, **100.00% Recall**) |
+| **03** | **Receiver Operating Characteristic (ROC)** | [`reports/figures/03_model_roc_auc_curve.png`](../../reports/figures/03_model_roc_auc_curve.png) | Early Academic Failure Classification (**AUC = 0.955**) |
+| **04** | **SHAP Global Feature Importance** | [`reports/figures/04_shap_global_feature_importance.png`](../../reports/figures/04_shap_global_feature_importance.png) | TreeExplainer Exact Attribution (Midterm 2: $81.98\%$, Midterm 1: $10.13\%$, Attendance: $2.65\%$) |
+| **05** | **4-Tier Institutional Risk Stratification** | [`reports/figures/05_risk_stratification_distribution.png`](../../reports/figures/05_risk_stratification_distribution.png) | Low Risk: 219 (55.4%), Moderate: 21 (5.3%), High: 87 (22.0%), Critical: 68 (17.2%) |
+| **06** | **Academic Metric Correlation Heatmap** | [`reports/figures/06_academic_correlation_matrix.png`](../../reports/figures/06_academic_correlation_matrix.png) | Empirical Pearson correlation coefficients across grades, attendance, study time, and failures |
+| **07** | **Student Behavioral Clustering (PCA)** | [`reports/figures/07_student_clustering_pca.png`](../../reports/figures/07_student_clustering_pca.png) | K-Means ($K=4$) cluster centroids and engagement profiles projected onto 2 principal components |
+
+---
+
+## 🖥️ Manual Screen Capture Guide (For Live Running App)
+
+To capture screenshots of the active running application without fabrication, run either the Streamlit web application or the React TypeScript dashboard and capture the following screens:
+
+### Step 1: Start the Local Application
+```bash
+# Option A: Full Multi-Role Streamlit Platform
+streamlit run app/app.py
+# (Runs on http://localhost:8501)
+
+# Option B: React + Vite Interactive Client
+cd frontend
+npm install
+npm run dev
+# (Runs on http://localhost:5173)
+```
+
+### Step 2: Capture Target Screens
+
+| # | Screen Name | Suggested Path | Route / Login Role | Key Elements to Include |
 | :-: | :--- | :--- | :--- | :--- |
-| **01** | **Executive Overview** | `/` (Overview) | Admin, Faculty | Live KPI cards, department filter, cohort distribution chart, urgent risk counter |
-| **02** | **Dataset Architecture** | `/dataset` | All Roles | 395 UCI records audit, 19 feature dictionary, missing value verification, distribution graphs |
-| **03** | **Multi-Model Benchmark** | `/models` | Admin, Faculty | 7-model + baseline evaluation table, R², MAE, RMSE, cross-validation variance comparison |
-| **04** | **Performance Prediction** | `/predict` | All Roles | What-If Academic Simulator, confidence intervals, local SHAP drivers, subject disclaimers |
-| **05** | **Explainable AI (XAI)** | `/explainability` | Admin, Faculty | TreeExplainer global feature hierarchy, dependence plots, individual waterfall attributions |
-| **06** | **Academic Risk Classification** | `/risk` | Admin, Faculty | Deterministic 4-tier risk stratification, 155 urgent vs 176 elevated tracking, intervention modal |
-| **07** | **Learning Recommendations** | `/recommendations` | All Roles | Personalized remediation roadmap, diagnostic tutorial assignment, habit coaching |
-| **08** | **Clustering & Personas** | `/clustering` | Admin, Faculty | Unsupervised K-Means clustering ($K=3$), behavioral archetype profiles, centroid radar charts |
-| **09** | **Model Testing & Validation** | `/testing` | Admin, Faculty | Real-time batch test runner, regression error distributions, residual scatter plots |
-| **10** | **Institutional Reports** | `/reports` | Admin, Faculty | Executive summary generator, 4-page audit-ready PDF export via jsPDF, CSV data exports |
-| **11** | **Admin User Management** | `/admin/users` | Admin Only | Enterprise user registry, BCrypt password enforcement, role elevation controls, audit log |
-| **12** | **Faculty Management** | `/faculty` | Admin Only | Faculty departmental directory, mentor-student assignment ratios, active remediation loads |
-| **13** | **Student Academic Portal** | `/student-portal` | Student, Faculty | FERPA-isolated personal academic dossier, continuous assessment history, intervention status |
+| **01** | **Main Executive Dashboard** | `docs/screenshots/01_main_dashboard.png` | Overview (`/`) / Admin or Faculty | 4 KPI stat cards, department filters, live cohort breakdown |
+| **02** | **Admin Governance Console** | `docs/screenshots/02_admin_dashboard.png` | Admin (`app/pages/admin.py` or `/admin/users`) | College CSV/XLSX file upload widget, schema validation summary |
+| **03** | **Faculty Triage Dashboard** | `docs/screenshots/03_faculty_dashboard.png` | Faculty (`app/pages/faculty.py` or `/risk`) | Student risk matrix, clinical directives log, high-risk triage list |
+| **04** | **Student Academic Dossier** | `docs/screenshots/04_student_dashboard.png` | Student (`app/pages/student.py` or `/student-portal`) | STU1024 profile, 5-subject academic radar chart, CGPA trend |
+| **05** | **Performance Prediction Simulator** | `docs/screenshots/05_performance_predictions.png` | Predict (`app/pages/prediction.py` or `/predict`) | What-If parameter sliders, confidence interval bar, simulation disclaimer |
+| **06** | **Personalized Study Recommendations**| `docs/screenshots/06_learning_recommendations.png` | Recommendations (`/recommendations`) | Weekly study timetable, diagnostic assignments, habit coaching |
+| **07** | **Exploratory Data Analytics (EDA)** | `docs/screenshots/07_data_visualizations.png` | Analytics (`app/pages/analytics.py` or `/dataset`) | Feature distributions, missing value audit, correlation charts |
+| **08** | **Model Benchmark & Cross-Validation**| `docs/screenshots/08_model_evaluation.png` | Testing (`app/pages/analytics.py` or `/models`) | 7-model benchmark leaderboard, test error residuals |
+| **09** | **Explainability & SHAP Waterfall** | `docs/screenshots/09_explainability_shap.png` | XAI (`app/pages/analytics.py` or `/explainability`) | Individual student SHAP attribution waterfall, feature drivers |
 
 ---
 
-## Module Architectural Highlights
+## 📑 Generated PDF Reports & Outputs
 
-### 1. Executive Overview (`src/pages/OverviewPage.tsx`)
-- **Key Visual Elements**: 4 primary KPI stat cards with trend sparklines and top gradient accent borders.
-- **Dynamic Controls**: Real-time multi-dimensional filter bar (Department, Course, Semester, Risk Status).
-- **Security Guard**: Role-aware rendering showing aggregated institutional analytics for faculty/admin while redirecting student accounts to personal records.
-
-### 2. Performance Prediction & What-If Simulator (`src/pages/PredictionPage.tsx`)
-- **Interactive Scenarios**: Instant What-If parameter sliders with debounced real-time inference ($< 12\text{ms}$).
-- **Compliance Badge**: Prominently displays *"Hypothetical Academic Simulation — Does not guarantee exam results"*.
-- **Subject-Specific Disclaimer**: Automatically signals *"Subject-specific prediction unavailable. Additional subject-level training data is required."* when course contexts are selected.
-
-### 3. Explainable AI & SHAP Transparency (`src/pages/ExplainabilityPage.tsx`)
-- **Game-Theoretic Rigor**: Implements Lundberg's Shapley Additive Explanations.
-- **Audit Findings**: Demonstrates Midterm 2 ($81.98\%$) and Midterm 1 ($10.13\%$) as primary academic trajectory drivers.
-
-### 4. Institutional Risk Stratification (`src/pages/RiskPage.tsx`)
-- **Strict Mutually Exclusive Partition**:
-  - Low Risk: 219 students (55.4%)
-  - Moderate Risk: 21 students (5.3%)
-  - High Risk: 87 students (22.0%)
-  - Critical Risk: 68 students (17.2%)
-  - Total Verified: 395 students (100.0%)
-- **Intervention Tracking**: Faculty tracking status strictly marked *"Awaiting Follow-up Assessment"* until empirical post-intervention continuous assessment tests are logged.
-
-### 5. Institutional Reports & 4-Page PDF Engine (`src/pages/ReportsPage.tsx`)
-- **Direct PDF Export**: Generates 4-page vector PDF via `jsPDF` containing benchmark audit specifications, confusion matrix, model selection rationale, and ethical AI governance.
-- **Zero Hallucination Guarantee**: Fictional signatories and unverified legal compliance certifications are strictly omitted in favor of verifiable benchmark metadata.
+All report artifacts are pre-compiled and available in the repository:
+- **Sample Benchmark Student PDF Report**: [`outputs/STU1024_sample_academic_report.pdf`](../../outputs/STU1024_sample_academic_report.pdf) (Pure Python vector PDF with digital verification token)
+- **Executive Analytics PDF Report**: [`outputs/trekverse_executive_analytics_report_sample.pdf`](../../outputs/trekverse_executive_analytics_report_sample.pdf)
+- **Benchmark Evaluation Report**: [`reports/evaluation/model_evaluation_report.md`](../../reports/evaluation/model_evaluation_report.md)
+- **Dataset Analysis Report**: [`reports/evaluation/dataset_analysis_report.md`](../../reports/evaluation/dataset_analysis_report.md)
+- **Risk Stratification Report**: [`reports/evaluation/risk_analysis_report.md`](../../reports/evaluation/risk_analysis_report.md)
